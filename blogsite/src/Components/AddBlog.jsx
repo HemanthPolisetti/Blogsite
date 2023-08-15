@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import NavBar from './NavBar'
 import axios from 'axios';
 import { Card, CardBody, CardHeader, Input,Button,Textarea} from "@nextui-org/react";
+import {useNavigate} from 'react-router-dom';
 const AddBlog = () => {
   const [inputs,setInputs]=useState({
     title:'',
@@ -9,6 +10,7 @@ const AddBlog = () => {
     image:'',
   })
   const uid=localStorage.getItem("userId")
+  const navigate=useNavigate()
   const handleChange=(e)=>{
     setInputs((prev)=>({
     ...prev,
@@ -23,11 +25,11 @@ const AddBlog = () => {
         user:uid
     })
     const data = res.data;
-    console.log(data);
+    return data
   }
   const handleSubmit=(e)=>{
     e.preventDefault()
-    requestHandle()
+    requestHandle().catch((err)=>console.log(err)).then(()=>navigate('/home'))
   }
   return(
     <>

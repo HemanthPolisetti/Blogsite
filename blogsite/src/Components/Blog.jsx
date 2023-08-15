@@ -15,7 +15,7 @@ const Blog = ({title,desc,user,image}) => {
         alt="Card background"
         className="object-cover rounded-xl"
         src={image}
-        width={270}
+        width={370}
         
       />
       </div>
