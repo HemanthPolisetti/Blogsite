@@ -1,13 +1,42 @@
 import { Card, CardBody, CardHeader, Input,Button,Link } from "@nextui-org/react";
-import React from 'react';
+import React, { useState } from 'react';
 import {EyeFilledIcon} from "./EyeFilledIcon";
 import {EyeSlashFilledIcon} from "./EyeSlashFilledIcon";
 import NavBar from './Navbar';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../Store/store";
 
 const Login = () => {
-    const [isVisible, setIsVisible] = React.useState(false);
-
+    const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const [inputs,setInputs]=useState({
+    name:'',
+    email:'',
+    password:''
+  })
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const handleLoginChange=(e)=>{
+    setInputs((prev)=>({
+      ...prev,
+      [e.target.name]:e.target.value
+    }))
+  }
+  const requestLoginHandler=async()=>{
+    const res= await axios.post('http://localhost:5000/api/user/login',{
+        email:inputs.email,
+        password:inputs.password
+      }).catch((err)=>console.log(err));
+      const data=res.data;
+      return data
+    }
+    const handleLoginSubmit=(e)=>{
+      e.preventDefault()
+      requestLoginHandler().then((data)=>localStorage.setItem('userId',data.user._id)).then(()=>dispatch(authActions.login())).then(()=>navigate('/home'))
+    }
   return (
     <div>
       <NavBar />
@@ -17,14 +46,19 @@ const Login = () => {
         <h4 className="text-large uppercase font-bold text-white">Login Form</h4>
       </CardHeader>
       <CardBody className="overflow-visible py-2">
+  <form onSubmit={handleLoginSubmit}>
       <div className="flex flex-col items-center">
-      <Input
+<Input
               type="email"
               label="Email"
               labelPlacement="outside"
               className='max-w-xs mt-6 italic'
-            />
-       <Input
+              isRequired
+              name='email'
+              onChange={handleLoginChange}
+              value={inputs.email} 
+              />
+<Input
       label="Password"
       labelPlacement="outside"
       // placeholder="Enter your password"
@@ -38,11 +72,16 @@ const Login = () => {
         </button>
       }
       type={isVisible ? "text" : "password"}
-      className="max-w-xs mt-6"
-    />
-    <Button variant='ghost' color="current"  className='italic mt-6 text-white bg-#11181c'>Login</Button>
+      className="max-w-xs mt-6" 
+      name='password'
+      onChange={handleLoginChange}
+      value={inputs.password}
+      isRequired
+                                                                                            />
+    <Button variant='ghost' color="current"  className='italic mt-6 text-white bg-#11181c' type='submit'>Login</Button>
     <p className="mt-4 text-white">Doesn`t have account <Link href='/signup'> SignUp</Link> here</p>
     </div>
+    </form>
       </CardBody>
     </Card>
     </div>

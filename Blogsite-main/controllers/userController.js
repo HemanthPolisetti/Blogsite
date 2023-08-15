@@ -47,6 +47,7 @@ const userSignup=async(req,res,next)=>{
                 blogs:[]
             })
             try{
+               
                 user.save();
                 res.status(201).json({user})
             }
@@ -65,6 +66,7 @@ const userSignup=async(req,res,next)=>{
 
 const userLogin=async(req,res,next)=>{
     const {email,password}=req.body
+    console.log(req.body,'he')
     try{
         const user=await User.findOne({userEmail:email})
         if(user){
@@ -73,7 +75,7 @@ const userLogin=async(req,res,next)=>{
                 res.status(400).json({message:'Incorrect Password'})
             }
             else{
-                res.status(200).json({message:"userLogin"})
+                res.status(200).json({user})
             }
         }
         else{

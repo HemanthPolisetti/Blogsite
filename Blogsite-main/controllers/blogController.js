@@ -112,7 +112,7 @@ const getUserBlogs=async(req,res,next)=>{
     try{
         blog=await User.findById(userId).populate('blogs');
         if(blog){
-            return res.status(200).json({"user blogs":blog});
+            return res.status(200).json({blog});
         }
         else{
             return res.status(404).json({message:"No Blogs Found"})
