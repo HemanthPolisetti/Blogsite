@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {  Navbar,   NavbarBrand,   NavbarContent,   NavbarItem,   NavbarMenuToggle,  NavbarMenu,  NavbarMenuItem,Link,Button} from "@nextui-org/react";
 import logo from '../assets/blog.svg';
 import { useSelector , useDispatch } from 'react-redux';
@@ -7,13 +7,14 @@ const NavBar = () => {
   const isLoggedin = useSelector((state)=>state.isLoggedin)
   const dispatch=useDispatch()
   return (
-    <div>
-       <Navbar className='bg-transparent'>
-          <NavbarBrand justify='start'>
-            <a href='/'> <img src={logo} alt='logo' className='w-10' /></a>
-             <p className='font-bold font-sans text-indigo-300'>BLOGIER</p>
-          </NavbarBrand>
-         {!isLoggedin && <NavbarContent justify='end'>
+    <div>    
+        {!isLoggedin && 
+        <Navbar className='bg-transparent'>
+         <NavbarBrand justify='start'>
+         <a href='/'> <img src={logo} alt='logo' className='w-10' /></a>
+          <p className='font-bold font-sans text-indigo-300'>BLOGIER</p>
+       </NavbarBrand>
+         <NavbarContent justify='end'>
             <NavbarItem>
             <Button as={Link} href="/login" variant="solid"  className='bg-indigo-800 text-white font-bold italic'>
             Login
@@ -29,8 +30,16 @@ const NavBar = () => {
                 About
                </Button>
           </NavbarItem>
-          </NavbarContent>}
-          {isLoggedin &&  <NavbarContent justify='end'>
+          </NavbarContent>
+          </Navbar>
+          }
+          {isLoggedin &&  
+          <Navbar className='bg-transparent'>
+          <NavbarBrand justify='start'>
+         <a href='/home'> <img src={logo} alt='logo' className='w-10' /></a>
+          <p className='font-bold font-sans text-indigo-300'>BLOGIER</p>
+       </NavbarBrand>
+          <NavbarContent justify='end'>
             <NavbarItem>
             <Button as={Link} href="/myblogs" variant="solid"  className='bg-indigo-800 text-white font-bold italic'>
             MyBlogs
@@ -46,9 +55,10 @@ const NavBar = () => {
                 LogOut
                </Button>
           </NavbarItem>
-          </NavbarContent>}
-        </Navbar>
-    </div>
+          </NavbarContent>
+          </Navbar>
+}
+x    </div>
   )
 }
 
