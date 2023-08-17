@@ -66,7 +66,6 @@ const userSignup=async(req,res,next)=>{
 
 const userLogin=async(req,res,next)=>{
     const {email,password}=req.body
-    console.log(req.body,'he')
     try{
         const user=await User.findOne({userEmail:email})
         if(user){

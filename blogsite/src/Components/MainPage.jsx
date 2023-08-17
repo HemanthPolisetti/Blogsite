@@ -7,7 +7,6 @@ import img2 from '../assets/img2.jpg'
 const MainPage = () => {
   return (
     <div>
-      <NavBar />
       <div className='pt-10 flex flex-col items-center'>
       <h2 className='font-bold font-sans text-white'>A Way To Express Yourself...</h2>
     <div className='flex'>

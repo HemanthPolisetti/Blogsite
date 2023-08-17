@@ -4,7 +4,6 @@ import Blogs from './Blogs'
 const Homepage = () => {
   return (
     <div>
-      <NavBar />
       <Blogs />
     </div>
   )

@@ -1,15 +1,17 @@
 import { Card, CardBody, CardHeader, Input,Button,Link } from "@nextui-org/react";
 import React, { useEffect, useState } from 'react';
-import {EyeFilledIcon} from "./EyeFilledIcon";
-import {EyeSlashFilledIcon} from "./EyeSlashFilledIcon";
-import NavBar from './Navbar';
+import {EyeFilledIcon} from "../assets/EyeFilledIcon";
+import {EyeSlashFilledIcon} from "../assets/EyeSlashFilledIcon";
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { authActions } from "../Store/store";
 
 const Signup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [matchPassword,setMatchPassword]=useState(false)
   const navigate=useNavigate()
+  const dispatch = useDispatch()
   const [inputs,setInputs]=useState({
     name:'',
     email:'',
@@ -49,8 +51,7 @@ const Signup = () => {
 
   
   return (
-    <div>
-    <NavBar />
+  <div>
   <div className="flex justify-center pt-2 mt-20 items-center italic ">
   <Card className="p-4 w-5/12 bg-current">
   <CardHeader className="pb-0 pt-2 flex-col Login Forms-start">

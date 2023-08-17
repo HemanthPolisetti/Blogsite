@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import NavBar from './NavBar'
 import axios from 'axios';
 import { Card, CardBody, CardHeader, Input,Button,Textarea} from "@nextui-org/react";
 import {useNavigate} from 'react-router-dom';
@@ -33,7 +32,6 @@ const AddBlog = () => {
   }
   return(
     <>
-    <NavBar />
      <div className="flex justify-center pt-2 mt-20 items-center italic ">
       <Card className="p-4 w-5/12 bg-current">
       <CardHeader className="pb-0 pt-2 flex-col Login Forms-start">
